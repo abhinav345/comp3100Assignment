@@ -44,6 +44,7 @@ class MyClient1 {
         dout.write("OK\n".getBytes());
         dout.flush();
 
+        //code to store the server(s) data
         ArrayList<ArrayList<String>> serverList = new ArrayList<ArrayList<String>>();
         for (int i = 0; i < NumServers; i++) {
             str = din.readLine();
@@ -56,12 +57,27 @@ class MyClient1 {
             arr.add(serverName);
             arr.add(serverID);
             arr.add(cores);
-            System.out.println(arr);
             serverList.add(arr);
             System.out.println(str);
         }
 
-        System.out.println(serverList.get(2).get(2));
+        //code to find the largest server
+        int[] arrCores = new int[serverList.size()];
+        for(int i=0;i<serverList.size();i++) {
+            arrCores[i] = Integer.parseInt(serverList.get(i).get(2));
+            Arrays.sort(arrCores);
+        }
+        ArrayList<Integer> tempList = new ArrayList<Integer>();
+        for(int i=0;i<serverList.size();i++) {
+            int largest = arrCores[arrCores.length-1];
+            if(Integer.parseInt(serverList.get(i).get(2)) == largest) {
+                tempList.add(i);
+            }
+        }
+        System.out.println("Largest Server(s) is/are : ");
+        for(int i = 0; i<tempList.size();i++) {
+            System.out.println(serverList.get(tempList.get(i)));
+        }
 
         dout.write("OK\n".getBytes());
         dout.flush();
