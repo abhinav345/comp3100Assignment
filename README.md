@@ -1,4 +1,4 @@
-1. clone the ds-syst github repo to your local computer
+1. clone the ds-sim github repo to your local computer
 
 2. Open up two terminals
 
