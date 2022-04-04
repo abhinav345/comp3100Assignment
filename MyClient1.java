@@ -77,6 +77,7 @@ class MyClient1 {
         System.out.println("Server Says: " + str);
 
         int count=0;
+        int serverTab=1;
         while(!(str1.equalsIgnoreCase("NONE"))) {
             if(count==0) {
                 dout.write(("SCHD " + JobInfo[2] + " " + serverList.get(tempList.get(0)).get(0) + " " + serverList.get(tempList.get(0)).get(1) + "\n").getBytes());
@@ -91,9 +92,18 @@ class MyClient1 {
                 str1 = JobInfo[0];
                 if(str1.equalsIgnoreCase("JOBN")) {
                     System.out.println("Server Says: " + str);
-                    dout.write(("SCHD " + JobInfo[2] + " " + serverList.get(tempList.get(0)).get(0) + " " + serverList.get(tempList.get(0)).get(1) + "\n").getBytes());
-                    str = din.readLine();
-                    System.out.println("Job information back from the server is " + str);
+                    if(tempList.size()==1) {
+                        dout.write(("SCHD " + JobInfo[2] + " " + serverList.get(tempList.get(0)).get(0) + " " + serverList.get(tempList.get(0)).get(1) + "\n").getBytes());
+                        str = din.readLine();
+                        System.out.println("Job information back from the server is " + str);
+                    }
+                    else {
+                        dout.write(("SCHD " + JobInfo[2] + " " + serverList.get(tempList.get(serverTab)).get(0) + " " + serverList.get(tempList.get(serverTab)).get(1) + "\n").getBytes());
+                        str = din.readLine();
+                        System.out.println("Job information back from the server is " + str);
+                        serverTab++;
+                        if(serverTab==tempList.size()) serverTab = 0;
+                    }
                 }
             }
             count++;
